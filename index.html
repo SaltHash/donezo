@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en" data-theme-family="graphite" data-mode="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tasks</title>
+<link rel="stylesheet" href="themes.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+
+  <header>
+    <h1>Tasks</h1>
+    <div class="header-actions">
+      <button id="mode-toggle" class="icon-btn" type="button" title="Toggle light / dark" aria-pressed="false">
+        <svg class="icon icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+        <svg class="icon icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8Z"/></svg>
+      </button>
+      <select id="theme-family-select" class="theme-select" title="Color theme"></select>
+      <button class="btn-ghost" type="button" data-open-modal="stats-modal">Stats</button>
+      <button class="btn-ghost" type="button" data-open-modal="settings-modal">Routines</button>
+    </div>
+  </header>
+
+  <div class="view-controls">
+    <div class="view-controls-row">
+      <button class="icon-btn" id="prev-day" type="button" title="Previous day" aria-label="Previous day">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+      </button>
+      <div class="view-date-wrap">
+        <input type="date" id="view-date">
+        <span class="view-date-label" id="view-date-label"></span>
+      </div>
+      <button class="icon-btn" id="next-day" type="button" title="Next day" aria-label="Next day">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+      </button>
+      <button class="btn-subtle" id="today-btn" type="button">Today</button>
+      <button class="icon-btn" id="search-toggle" type="button" title="Search tasks" aria-label="Search tasks">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+      </button>
+    </div>
+    <div class="search-row" id="search-row" hidden>
+      <input type="text" id="search-input" placeholder="Filter tasks on this day…">
+    </div>
+  </div>
+
+  <div class="add-task-panel">
+    <div class="add-task-row">
+      <input type="text" id="new-task-text" placeholder="What needs to be done?" maxlength="200" autofocus>
+    </div>
+    <div class="add-task-row bottom">
+      <select id="new-task-type">
+        <option value="date">Specific date</option>
+        <option value="permanent">Anytime</option>
+      </select>
+      <input type="date" id="add-task-date">
+      <button class="btn-primary" id="add-task-btn" type="button">Add</button>
+    </div>
+    <p class="hint-text" id="add-type-hint"></p>
+  </div>
+
+  <section class="anytime-section" id="anytime-section" hidden>
+    <div class="section-heading">
+      <h2>Anytime</h2>
+      <button class="link-btn" id="anytime-completed-toggle" type="button" hidden></button>
+    </div>
+    <ul class="task-list" id="anytime-list"></ul>
+  </section>
+
+  <section class="day-section">
+    <div class="section-heading">
+      <h2 id="day-heading">Today</h2>
+    </div>
+    <ul class="task-list" id="task-list"></ul>
+  </section>
+
+</div>
+
+<!-- Routines / Settings Modal -->
+<div class="modal-overlay" id="settings-modal" data-close-modal="settings-modal">
+  <div class="modal-content" role="dialog" aria-labelledby="routines-title">
+    <div class="modal-header">
+      <h2 id="routines-title">Routines</h2>
+      <button class="delete-btn" type="button" data-close-modal="settings-modal" aria-label="Close">×</button>
+    </div>
+
+    <div class="settings-group">
+      <label for="rec-task-text" id="routine-form-label">New routine</label>
+      <p class="hint-text">
+        A routine repeats every week on the days you pick below. Days linked into one block
+        share a single check-off for that week — completing any day in the block marks the
+        whole block done, and it resets at the block's first day. Click a day to toggle it on
+        its own, drag across days to link them, or drag a block's edge to resize it.
+      </p>
+      <input type="text" id="rec-task-text" placeholder="e.g., Read 20 pages" maxlength="200">
+
+      <div class="week-builder" id="week-builder">
+        <div class="week-builder-track" id="week-track"></div>
+      </div>
+      <p class="hint-text" id="week-builder-summary">No days selected yet.</p>
+
+      <div class="routine-form-actions">
+        <button class="btn-primary" id="save-routine-btn" type="button">Add routine</button>
+        <button class="btn-ghost" id="cancel-edit-btn" type="button" hidden>Cancel edit</button>
+      </div>
+    </div>
+
+    <hr class="divider">
+
+    <div class="settings-group">
+      <label>Active routines</label>
+      <ul class="task-list" id="recurring-list"></ul>
+    </div>
+
+    <hr class="divider">
+
+    <div class="settings-group">
+      <label>Data</label>
+      <p class="hint-text">Everything is stored only in this browser. Export a backup before clearing site data or switching browsers.</p>
+      <div class="data-actions">
+        <button class="btn-ghost" id="export-btn" type="button">Export backup</button>
+        <button class="btn-ghost" id="import-btn" type="button">Import backup</button>
+        <input type="file" id="import-file" accept="application/json" hidden>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Stats Modal -->
+<div class="modal-overlay" id="stats-modal" data-close-modal="stats-modal">
+  <div class="modal-content" role="dialog" aria-labelledby="stats-title">
+    <div class="modal-header">
+      <h2 id="stats-title">Your progress</h2>
+      <button class="delete-btn" type="button" data-close-modal="stats-modal" aria-label="Close">×</button>
+    </div>
+    <div class="stats-grid">
+      <div class="stat-box">
+        <div class="stat-number" id="stat-completed">0</div>
+        <div class="stat-label">Completed</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-number" id="stat-added">0</div>
+        <div class="stat-label">Tasks added</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-number" id="stat-streak">0</div>
+        <div class="stat-label">Day streak</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-number" id="stat-rate">0%</div>
+        <div class="stat-label">Completion rate</div>
+      </div>
+    </div>
+    <p class="hint-text stat-note">The streak counts any day you checked off at least one task — it's based on today's date, not the date a task was scheduled for.</p>
+  </div>
+</div>
+
+<div class="toast-container" id="toast-container" aria-live="polite"></div>
+
+<script src="script.js"></script>
+</body>
+</html>

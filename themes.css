@@ -1,0 +1,185 @@
+/* =========================================================================
+   THEMES
+   Every visual color in the app lives here, and nowhere else.
+   A theme is a (family × mode) pair, selected on <html> with two attributes:
+
+       data-theme-family="graphite | gruvbox | catppuccin | ayu | nord | rosepine"
+       data-mode="dark | light"
+
+   script.js only ever writes those two attributes — it never touches
+   individual color values. style.css only ever reads the variables below.
+   ========================================================================= */
+
+/* ---------- Graphite (default, neutral) ---------- */
+html[data-theme-family="graphite"][data-mode="dark"] {
+  --bg: #15171b;
+  --surface: #1c1f24;
+  --surface-2: #262a31;
+  --border: #31353d;
+  --text: #eceef1;
+  --text-dim: #8b909b;
+  --accent: #eef0f4;
+  --accent-contrast: #15171b;
+  --danger: #f0645f;
+  --danger-contrast: #15171b;
+}
+html[data-theme-family="graphite"][data-mode="light"] {
+  --bg: #f7f7f8;
+  --surface: #ffffff;
+  --surface-2: #f0f1f3;
+  --border: #e1e3e7;
+  --text: #191b1f;
+  --text-dim: #6b6f78;
+  --accent: #191b1f;
+  --accent-contrast: #ffffff;
+  --danger: #d9463f;
+  --danger-contrast: #ffffff;
+}
+
+/* ---------- Gruvbox (warm, retro) ---------- */
+html[data-theme-family="gruvbox"][data-mode="dark"] {
+  --bg: #282828;
+  --surface: #3c3836;
+  --surface-2: #504945;
+  --border: #665c54;
+  --text: #ebdbb2;
+  --text-dim: #a89984;
+  --accent: #fe8019;
+  --accent-contrast: #282828;
+  --danger: #fb4934;
+  --danger-contrast: #282828;
+}
+html[data-theme-family="gruvbox"][data-mode="light"] {
+  --bg: #fbf1c7;
+  --surface: #f2e5bc;
+  --surface-2: #ebdbb2;
+  --border: #d5c4a1;
+  --text: #3c3836;
+  --text-dim: #7c6f64;
+  --accent: #af3a03;
+  --accent-contrast: #fbf1c7;
+  --danger: #9d0006;
+  --danger-contrast: #fbf1c7;
+}
+
+/* ---------- Catppuccin (Mocha / Latte) ---------- */
+html[data-theme-family="catppuccin"][data-mode="dark"] {
+  --bg: #1e1e2e;
+  --surface: #313244;
+  --surface-2: #45475a;
+  --border: #585b70;
+  --text: #cdd6f4;
+  --text-dim: #a6adc8;
+  --accent: #cba6f7;
+  --accent-contrast: #1e1e2e;
+  --danger: #f38ba8;
+  --danger-contrast: #1e1e2e;
+}
+html[data-theme-family="catppuccin"][data-mode="light"] {
+  --bg: #eff1f5;
+  --surface: #ffffff;
+  --surface-2: #ccd0da;
+  --border: #bcc0cc;
+  --text: #4c4f69;
+  --text-dim: #6c6f85;
+  --accent: #8839ef;
+  --accent-contrast: #ffffff;
+  --danger: #d20f39;
+  --danger-contrast: #ffffff;
+}
+
+/* ---------- Ayu (Mirage / Light) ---------- */
+html[data-theme-family="ayu"][data-mode="dark"] {
+  --bg: #0f1419;
+  --surface: #151a1e;
+  --surface-2: #1f2430;
+  --border: #2b3240;
+  --text: #e6e1cf;
+  --text-dim: #8b98a5;
+  --accent: #ffb454;
+  --accent-contrast: #0f1419;
+  --danger: #f07178;
+  --danger-contrast: #0f1419;
+}
+html[data-theme-family="ayu"][data-mode="light"] {
+  --bg: #fafafa;
+  --surface: #ffffff;
+  --surface-2: #f2f2f2;
+  --border: #e7e8e9;
+  --text: #5c6166;
+  --text-dim: #8a9199;
+  --accent: #e6752b;
+  --accent-contrast: #ffffff;
+  --danger: #e65050;
+  --danger-contrast: #ffffff;
+}
+
+/* ---------- Nord ---------- */
+html[data-theme-family="nord"][data-mode="dark"] {
+  --bg: #2e3440;
+  --surface: #3b4252;
+  --surface-2: #434c5e;
+  --border: #4c566a;
+  --text: #eceff4;
+  --text-dim: #d8dee9;
+  --accent: #88c0d0;
+  --accent-contrast: #2e3440;
+  --danger: #bf616a;
+  --danger-contrast: #2e3440;
+}
+html[data-theme-family="nord"][data-mode="light"] {
+  --bg: #eceff4;
+  --surface: #ffffff;
+  --surface-2: #e5e9f0;
+  --border: #d8dee9;
+  --text: #2e3440;
+  --text-dim: #4c566a;
+  --accent: #5e81ac;
+  --accent-contrast: #eceff4;
+  --danger: #bf616a;
+  --danger-contrast: #eceff4;
+}
+
+/* ---------- Rosé Pine (Main / Dawn) ---------- */
+html[data-theme-family="rosepine"][data-mode="dark"] {
+  --bg: #191724;
+  --surface: #1f1d2e;
+  --surface-2: #26233a;
+  --border: #403d52;
+  --text: #e0def4;
+  --text-dim: #908caa;
+  --accent: #c4a7e7;
+  --accent-contrast: #191724;
+  --danger: #eb6f92;
+  --danger-contrast: #191724;
+}
+html[data-theme-family="rosepine"][data-mode="light"] {
+  --bg: #faf4ed;
+  --surface: #fffaf3;
+  --surface-2: #f2e9e1;
+  --border: #dfdad9;
+  --text: #575279;
+  --text-dim: #797593;
+  --accent: #907aa9;
+  --accent-contrast: #faf4ed;
+  --danger: #b4637a;
+  --danger-contrast: #faf4ed;
+}
+
+/* ---------- Chrome that depends on light vs. dark, not on the family ----------
+   Native date-picker glyphs render dark-on-transparent by default, which
+   disappears against any dark surface. Inverting per-mode (rather than
+   per-theme-name, as the previous version did) means every dark theme gets
+   this for free, including ones added later. */
+html[data-mode="dark"] input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+}
+input[type="date"]::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+}
+
+/* Selection color follows the accent, for a small extra touch of cohesion */
+::selection {
+  background: var(--accent);
+  color: var(--accent-contrast);
+}
